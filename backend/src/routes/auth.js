@@ -9,7 +9,7 @@ const router = express.Router();
 
 
 
-router.post('/', async (req, res) => {
+router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   // Verifique se o e-mail e a senha foram fornecidos

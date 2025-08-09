@@ -1,8 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import createUserRoutes from './routes/createuser.js';
+import userRoutes from './routes/userRoutes.js';
 import authRoutes from './routes/auth.js';
-import profileRoutes from './routes/profile.js';
 import connectDB from './services/mongooseService.js';
 
 const app = express();
@@ -13,9 +12,10 @@ console.log('URI carregada:', process.env.MONGO_URI); // deve mostrar a URI comp
 
 connectDB();
 
-app.use('/Users', createUserRoutes ); // Rota para criação de usuários
-app.use('/auth', authRoutes); // Rota para autenticação
-app.use('/profile', profileRoutes); // Rota para perfil de usuário
+// Rotas principais
+app.use('/api/users', userRoutes);  // /register e /profile
+app.use('/api/auth', authRoutes);   // /login
+
 
 const PORT = 3001;
 

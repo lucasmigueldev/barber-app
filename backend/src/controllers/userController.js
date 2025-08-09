@@ -1,10 +1,7 @@
-import express from "express";
 import bcrypt from "bcrypt";
 import User from "../models/User.js";
 
-const router = express.Router();
-
-router.post("/", async (req, res) => {
+export const createUser = async (req, res) => {
   const { name, email, password } = req.body;
 
   if (!password || password.length < 6) {
@@ -26,10 +23,15 @@ router.post("/", async (req, res) => {
     res.status(201).json({ message: "Usuário criado com sucesso" });
 
   } catch (err) {
-    console.error(err);
-    console.log("Erro ao criar usuário:", err.message);
+    console.error("Erro ao criar usuário:", err.message);
     res.status(500).json({ error: "Erro interno" });
   }
-});
+};
 
-export default router;
+export const getProfile = (req, res) => {
+  const userData = req.user;
+  res.status(200).json({
+    message: "Acesso autorizado",
+    user: userData
+  });
+};

@@ -2,7 +2,8 @@ import express from 'express';
 import dotenv from 'dotenv';
 import createUserRoutes from './routes/createuser.js';
 import authRoutes from './routes/auth.js';
-import connectDB from './services/moongoseService.js';
+import profileRoutes from './routes/profile.js';
+import connectDB from './services/mongooseService.js';
 
 const app = express();
 app.use(express.json());
@@ -14,6 +15,7 @@ connectDB();
 
 app.use('/Users', createUserRoutes ); // Rota para criação de usuários
 app.use('/auth', authRoutes); // Rota para autenticação
+app.use('/profile', profileRoutes); // Rota para perfil de usuário
 
 const PORT = 3001;
 

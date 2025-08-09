@@ -1,4 +1,8 @@
+
+# Dependências
 node_modules/
 
-.DS_Store
-.env
+# Arquivo de variáveis de ambiente
+backend/.env
+
+

@@ -1,11 +1,20 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import userRoutes from './routes/userRoutes.js';
 import authRoutes from './routes/auth.js';
 import connectDB from './services/mongooseService.js';
 
 const app = express();
 app.use(express.json());
+
+app.use(cors(
+  {
+    origin: 'http://localhost:4200', // Permitir apenas o frontend
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+  }
+));
 
 dotenv.config();
 console.log('URI carregada:', process.env.MONGO_URI); // deve mostrar a URI completa

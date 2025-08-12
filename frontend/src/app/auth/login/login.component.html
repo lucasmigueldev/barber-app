@@ -1,0 +1,119 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-200">
+  <div class="bg-white p-12 rounded-2xl shadow-2xl w-[400px]">
+    <div class="mb-10 text-center">
+      <h2 class="text-4xl font-extrabold text-blue-600">Bem-vindo</h2>
+      <p class="text-sm text-gray-500 mt-2">Acesse sua conta abaixo</p>
+    </div>
+
+    <form #loginForm="ngForm" (ngSubmit)="onLogin()">
+      <!-- Email -->
+      <div class="mb-6">
+        <label for="email" class="block text-sm font-medium text-blue-700 mb-2">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="email"
+          required
+          class="w-full px-4 py-3 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="seu@email.com"
+        />
+      </div>
+
+      <!-- Senha -->
+      <div class="mb-6">
+        <label for="password" class="block text-sm font-medium text-blue-700 mb-2">Senha</label>
+        <div class="relative">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            id="password"
+            name="password"
+            [(ngModel)]="password"
+            required
+            class="w-full px-4 py-3 border rounded-xl bg-gray-50 focus:outline-none focus:ring-2"
+            [ngClass]="{
+              'border-red-500 ring-red-300': password.length > 0 && password.length < 6,
+              'border-gray-300 focus:ring-blue-500': password.length >= 6 || password.length === 0
+            }"
+            placeholder="Digite sua senha"
+          />
+
+          <!-- Ícone de olho -->
+          <button
+            type="button"
+            (click)="togglePasswordVisibility()"
+            class="absolute right-3 top-3 text-gray-500 hover:text-blue-600"
+          >
+            <svg
+              *ngIf="!showPassword"
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+              />
+            </svg>
+
+            <svg
+              *ngIf="showPassword"
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M13.875 18.825A10.05 10.05 0 0112 19c-4.477 0-8.268-2.943-9.542-7a10.05 10.05 0 012.223-3.592M6.634 6.634A9.956 9.956 0 0112 5c4.477 0 8.268 2.943 9.542 7a9.956 9.956 0 01-4.132 5.255M3 3l18 18"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Validação de senha -->
+        <div *ngIf="password.length > 0 && password.length < 6" class="text-red-500 text-sm mt-2">
+          A senha deve conter no mínimo 6 dígitos.
+        </div>
+      </div>
+
+      <!-- Botão de login -->
+      <button
+        type="submit"
+        [disabled]="password.length < 6 || isLoading"
+        class="w-full py-3 rounded-xl text-white font-semibold transition duration-300"
+        [ngClass]="{
+          'bg-gray-400 cursor-not-allowed': password.length < 6 || isLoading,
+          'bg-blue-600 hover:bg-blue-700': password.length >= 6 && !isLoading
+        }"
+      >
+        <ng-container *ngIf="!isLoading">Entrar</ng-container>
+        <ng-container *ngIf="isLoading">
+          <div class="flex items-center justify-center gap-2">
+            <div class="w-5 h-5 border-2 border-t-blue-500 border-gray-200 rounded-full animate-spin"></div>
+            Carregando...
+          </div>
+        </ng-container>
+      </button>
+    </form>
+
+    <!-- Link de cadastro -->
+    <div class="mt-6 text-center">
+      <a routerLink="/register" class="text-sm text-blue-500 hover:underline">
+        Ainda não tem uma conta? Cadastre-se
+      </a>
+    </div>
+  </div>
+</div>

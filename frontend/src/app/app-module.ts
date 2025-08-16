@@ -3,12 +3,11 @@ import { BrowserModule, provideClientHydration, withEventReplay } from '@angular
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
-import { AuthService } from './services/auth/auth.service';
+import { AuthService } from '../app/services/auth.service';
 
 @NgModule({
   declarations: [
-    App,
-    AuthService
+    App
   ],
   imports: [
     BrowserModule,
@@ -17,7 +16,7 @@ import { AuthService } from './services/auth/auth.service';
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
-    provideClientHydration(withEventReplay())
+    provideClientHydration(withEventReplay()),
   ],
   bootstrap: [App]
 })
